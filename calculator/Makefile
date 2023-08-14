@@ -1,13 +1,15 @@
 include ../Makefile
 
-ALL: calculator
-.PHONY: clean
+ALL: build
+.PHONY: clean build
 
-calculator:
+calculator: calculator.hs
 	ghc --make -O calculator.hs -threaded -rtsopts -dynamic -o calculator
+
+build: calculator
 
 clean:
 	ls ./ | grep -Exv ".*\.hs|Makefile" | parallel rm -f
 
-run: calculator
+run: build
 	./calculator
